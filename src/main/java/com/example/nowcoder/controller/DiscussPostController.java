@@ -31,7 +31,7 @@ public class DiscussPostController {
     private UserService userService;
 
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String test(Model model,Page page) {
         page.setRows(discussPostMapper.selectDiscussPostRows(0));
         page.setPath("/index");
