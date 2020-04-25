@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.nowcoder.dao.UserMapper">
+    <sql id="selectFileds">
+        id, username,password,email,salt,type,status,activation_code,header_url,create_time
+    </sql>
+    <sql id="insertFileds">
+        username,password,email,salt,type,status,activation_code,header_url,create_time
+    </sql>
+    <select id="selectById" resultType="User">
+        SELECT <include refid="selectFileds">
+
+    </include>
+        from user where id=#{id}
+    </select>
+
+    <select id="selectByName" resultType="User">
+        SELECT <include refid="selectFileds"></include>
+        from user where username=#{name}
+    </select>
+
+    <select id="selectByEmail" resultType="User">
+        SELECT <include refid="selectFileds"></include>
+        from user where email=#{email}
+    </select>
+
+    <insert id="insertUser" parameterType="User" keyProperty="id">
+        INSERT into user
+        <include refid="insertFileds">
+    </include>
+        VALUES (#{username},#{password},#{salt},#{email},#{type},#{status},#{activation_code},#{header_url},#{create_time})
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE user  set status=#{status} WHERE id=#{id}
+    </update>
+
+    <update id="updateHeader">
+        UPDATE user  set header_url=#{headerUrl} WHERE id=#{id}
+    </update>
+
+    <update id="updatePassword">
+        UPDATE user  set password=#{password} WHERE id=#{id}
+    </update>
+</mapper>
