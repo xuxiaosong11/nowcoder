@@ -17,19 +17,22 @@
     </select>
 
     <select id="selectByName" resultType="User">
-        SELECT <include refid="selectFileds"></include>
-        from user where username=#{name}
+        SELECT <include refid="selectFileds">
+
+    </include>
+        from user where username=#{username}
     </select>
 
     <select id="selectByEmail" resultType="User">
-        SELECT <include refid="selectFileds"></include>
+        SELECT <include refid="selectFileds">
+
+    </include>
         from user where email=#{email}
     </select>
 
-    <insert id="insertUser" parameterType="User" keyProperty="id">
+    <insert id="insertUser" parameterType="User" keyProperty="id" r >
         INSERT into user
-        <include refid="insertFileds">
-    </include>
+        (username,password,email,salt,type,status,activation_code,header_url,create_time)
         VALUES (#{username},#{password},#{salt},#{email},#{type},#{status},#{activation_code},#{header_url},#{create_time})
     </insert>
 

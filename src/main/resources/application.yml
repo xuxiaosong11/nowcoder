@@ -1,5 +1,7 @@
 server:
   port: 8082
+  servlet:
+    context-path: /
 
 spring:
   thymeleaf:
@@ -31,9 +33,13 @@ spring:
 mybatis:
   type-aliases-package: com.example.nowcoder.entiy
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    use-generated-keys: true
 
 
-
+nowcoder:
+   path:
+      domain: http://localhost:8082
 
 
 

@@ -104,4 +104,21 @@ public class User {
     public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", email='" + email + '\'' +
+                ", type=" + type +
+                ", status=" + status +
+                ", activation_code='" + activation_code + '\'' +
+                ", header_url='" + header_url + '\'' +
+                ", create_time=" + create_time +
+                '}';
+    }
 }

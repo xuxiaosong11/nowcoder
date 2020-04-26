@@ -34,7 +34,7 @@ public class DiscussPostController {
     @GetMapping("/")
     public String test(Model model,Page page) {
         page.setRows(discussPostMapper.selectDiscussPostRows(0));
-        page.setPath("/index");
+        page.setPath("/");
         List<DiscussPost> discussPosts = discussPostMapper.selectDiscussPosts(0, page.getOffset(), page.getLimit());
         List<Map<String,Object>> post=new ArrayList<>();
         if (discussPosts != null) {
