@@ -36,8 +36,8 @@
         VALUES (#{username},#{password},#{salt},#{email},#{type},#{status},#{activation_code},#{header_url},#{create_time})
     </insert>
 
-    <update id="updateStatus">
-        UPDATE user  set status=#{status} WHERE id=#{id}
+    <update id="updateStatus" >
+        UPDATE user  set status=#{arg1} WHERE id=#{arg0}
     </update>
 
     <update id="updateHeader">

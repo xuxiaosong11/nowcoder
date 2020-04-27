@@ -3,6 +3,7 @@ package com.example.nowcoder.service;
 import com.example.nowcoder.dao.UserMapper;
 import com.example.nowcoder.entiy.User;
 import com.example.nowcoder.util.CoummuntiyUtil;
+import com.example.nowcoder.util.CoumuntiyConstant;
 import com.example.nowcoder.util.MailClient;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import java.util.Random;
  * @createTime 2020年04月25日 11:34:00
  */
 @Service
-public class UserService {
+public class UserService implements CoumuntiyConstant{
 
     @Autowired
     private UserMapper userMapper;
@@ -82,17 +83,26 @@ public class UserService {
          user.setActivation_code(CoummuntiyUtil.generateUUID());
          user.setHeader_url(String.format("http://images.nowcoder.com/head/%dt.png",new Random().nextInt(1000)));
         user.setCreate_time(new Date());
-        System.out.println(user);
         int i = userMapper.insertUser(user);
-        System.out.println(i);
         Context context=new Context();
         context.setVariable("email",user.getEmail());
-        String url=domain+path+"/activation"+user.getId()+"/"+user.getActivation_code();
+        String url=domain+path+"activation"+"/"+user.getId()+"/"+user.getActivation_code();
         context.setVariable("url",url);
         String content=templateEngine.process("/mail/activation",context);
         mailClient.sendMail(user.getEmail(),"激活账号",content);
         return map;
     }
-
+    public int activation(int userid,String code) {
+        User user = userMapper.selectById(userid);
+        System.out.println(user);
+        if (user.getStatus()==1) {
+            return ACTIVATION_REPEAT;
+        }else if (user.getActivation_code().equals(code)) {
+            int i = userMapper.updateStatus(userid, 1);
+            return ACTIVATION_SUCCESS;
+        }else {
+            return ACTIVATION_FAIL;
+        }
+    }
 
 }
