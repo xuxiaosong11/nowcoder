@@ -30,7 +30,7 @@
         from user where email=#{email}
     </select>
 
-    <insert id="insertUser" parameterType="User" keyProperty="id" r >
+    <insert id="insertUser" parameterType="User" keyProperty="id"  >
         INSERT into user
         (username,password,email,salt,type,status,activation_code,header_url,create_time)
         VALUES (#{username},#{password},#{salt},#{email},#{type},#{status},#{activation_code},#{header_url},#{create_time})
